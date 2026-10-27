@@ -1,0 +1,22 @@
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1.5px solid var(--color-rareza);
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+}
+
+.insignia svg {
+  color: var(--color-rareza);
+}
+
+.insignia[data-rareza="comun"] {
+  border-color: var(--rareza-comun);
+}
+
+.insignia[data-rareza="legendaria"] {
+  background: var(--rareza-legendaria-suave);
+}
