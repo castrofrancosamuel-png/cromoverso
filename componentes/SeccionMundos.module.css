@@ -1,0 +1,132 @@
+.seccion {
+  padding-block: var(--espacio-7);
+  scroll-margin-top: 72px;
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-5);
+}
+
+.titulo {
+  font: 600 28px/34px var(--fuente-unbounded);
+  letter-spacing: -0.5px;
+}
+
+.subtitulo {
+  margin-top: var(--espacio-1);
+  color: var(--texto-secundario);
+}
+
+.verMundo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-marca);
+  font: 600 14px/20px var(--fuente-rubik);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.verMundo:hover {
+  text-decoration: underline;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--espacio-4);
+}
+
+.tarjeta {
+  display: grid;
+  gap: var(--espacio-2);
+  height: 100%;
+  padding: var(--espacio-4);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-l);
+  background: var(--color-mundo-suave);
+  box-shadow: var(--sombra-pop);
+  text-decoration: none;
+  transition: transform 120ms ease;
+}
+
+.tarjeta:hover {
+  transform: translate(-2px, -2px);
+}
+
+.cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--espacio-2);
+}
+
+.icono {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: 50%;
+  background: var(--color-mundo);
+  color: var(--texto-inverso);
+}
+
+.etiqueta {
+  padding: 2px var(--espacio-2);
+  border-radius: var(--radio-pildora);
+  background: var(--marca-acento-suave);
+  color: var(--estado-alerta);
+}
+
+.nombre {
+  font-weight: 700;
+}
+
+.total {
+  color: var(--texto-secundario);
+}
+
+@media (max-width: 1023px) {
+  .lista {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Móvil: carrusel horizontal como en el diseño */
+@media (max-width: 767px) {
+  .seccion {
+    padding-block: var(--espacio-6);
+  }
+
+  .titulo {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .subtitulo {
+    display: none;
+  }
+
+  .verMundo {
+    font-size: 13px;
+  }
+
+  .lista {
+    display: flex;
+    gap: var(--espacio-3);
+    margin-inline: calc(-1 * var(--margen-pagina));
+    padding: 0 var(--margen-pagina) var(--espacio-2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .lista li {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+  }
+}

@@ -1,0 +1,146 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-inverso);
+  color: var(--texto-inverso);
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--fondo-inverso-2);
+}
+
+.interior {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--espacio-6);
+  min-height: 560px;
+  padding-block: var(--espacio-8);
+}
+
+.texto {
+  display: grid;
+  gap: var(--espacio-6);
+  justify-items: start;
+}
+
+.titulo {
+  max-width: 11em;
+  font: 700 clamp(40px, 4.4vw, 64px) / 1.08 var(--fuente-unbounded);
+  letter-spacing: -1.5px;
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-4);
+}
+
+.subtitulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-inverso-suave);
+}
+
+.destellos {
+  color: var(--marca-acento);
+}
+
+.subtituloMovil {
+  display: none;
+  color: var(--texto-inverso-suave);
+}
+
+/* Abanico de tres cartas */
+.cartas {
+  position: relative;
+  height: 400px;
+}
+
+.cartas > * {
+  position: absolute;
+  width: 230px;
+}
+
+.cartaIzquierda {
+  top: 50px;
+  left: 4%;
+  transform: rotate(-10deg);
+}
+
+.cartaDerecha {
+  top: 50px;
+  right: 4%;
+  transform: rotate(8deg);
+}
+
+.cartaCentro {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.guardiana {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: var(--espacio-1) var(--espacio-3);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-pildora);
+  background: var(--marca-acento);
+  color: var(--texto-principal);
+  white-space: nowrap;
+  transform: translateX(-50%) rotate(-6deg);
+}
+
+@media (max-width: 1023px) {
+  .cartas > * {
+    width: 190px;
+  }
+}
+
+/* Móvil: sin cartas, botones a lo ancho */
+@media (max-width: 767px) {
+  .interior {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-block: var(--espacio-4) var(--espacio-6);
+  }
+
+  .texto {
+    gap: var(--espacio-4);
+    justify-items: stretch;
+  }
+
+  .titulo {
+    max-width: none;
+    font-size: clamp(32px, 9vw, 40px);
+    letter-spacing: -1px;
+  }
+
+  .subtituloMovil {
+    display: block;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .subtitulo,
+  .cartas {
+    display: none;
+  }
+
+  .botones {
+    display: grid;
+    gap: var(--espacio-3);
+  }
+}
