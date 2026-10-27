@@ -11,7 +11,7 @@ const COLUMNAS = [
   { clave: "legal", enlaces: { terminos: "/terminos" } },
 ];
 
-export default function Pie() {
+export default function Pie({ onPreferenciasCookies }) {
   const { t } = useTextos();
 
   return (
@@ -33,6 +33,13 @@ export default function Pie() {
                     <Link href={href} prefetch={false}>{t(`footer.columnas.${clave}.enlaces.${enlace}`)}</Link>
                   </li>
                 ))}
+                {clave === "legal" && (
+                  <li>
+                    <button type="button" className={estilos.botonEnlace} onClick={onPreferenciasCookies}>
+                      {t("cookies.preferencias.titulo")}
+                    </button>
+                  </li>
+                )}
               </ul>
             </nav>
           ))}
