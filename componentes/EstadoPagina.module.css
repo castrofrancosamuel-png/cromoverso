@@ -1,0 +1,12 @@
+.estado {
+  display: grid;
+  justify-items: center;
+  gap: var(--espacio-4);
+  padding-block: var(--espacio-8);
+  text-align: center;
+}
+
+.estado p {
+  max-width: 48ch;
+  color: var(--texto-secundario);
+}

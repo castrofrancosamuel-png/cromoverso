@@ -1,4 +1,8 @@
 import { Rubik, Unbounded } from "next/font/google";
+import ProveedorTextos from "@/componentes/ProveedorTextos";
+import Estructura from "@/componentes/Estructura";
+import { api } from "@/lib/api";
+import { leerPreferencias } from "@/lib/servidor";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -15,18 +19,25 @@ const rubik = Rubik({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Cromoverso",
-};
-
 export const viewport = {
   themeColor: "#1a1033",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const { idioma, consentimiento } = await leerPreferencias();
+  const { textos } = await api.textos(idioma);
+
   return (
-    <html lang="es" className={`${unbounded.variable} ${rubik.variable}`}>
-      <body>{children}</body>
+    <html lang={idioma} className={`${unbounded.variable} ${rubik.variable}`}>
+      <body>
+        <ProveedorTextos
+          idiomaInicial={idioma}
+          textosIniciales={textos}
+          consentimientoInicial={consentimiento}
+        >
+          <Estructura>{children}</Estructura>
+        </ProveedorTextos>
+      </body>
     </html>
   );
 }
