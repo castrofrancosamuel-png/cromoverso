@@ -1,0 +1,138 @@
+.cromo {
+  --borde-carta: var(--borde-grosor) solid var(--borde-fuerte);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  padding: 4px;
+  border: var(--borde-carta);
+  border-radius: var(--radio-m);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+  box-shadow: var(--sombra-pop);
+  min-width: 0;
+}
+
+.cromo[data-rareza="legendaria"] {
+  box-shadow: var(--sombra-pop), var(--brillo-legendaria);
+}
+
+.arte {
+  position: relative;
+  aspect-ratio: 156 / 180;
+  border: var(--borde-carta);
+  border-radius: var(--radio-s);
+  overflow: hidden;
+}
+
+.ilustracion {
+  width: 100%;
+  height: 100%;
+}
+
+.numero {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 1px 6px;
+  border: var(--borde-carta);
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-superficie);
+  font: 700 11px/14px var(--fuente-unbounded);
+}
+
+.rareza {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 20px;
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-superficie);
+}
+
+.cromo[data-rareza="comun"] .rareza { color: var(--rareza-comun); }
+.cromo[data-rareza="rara"] .rareza { color: var(--rareza-rara); }
+.cromo[data-rareza="epica"] .rareza { color: var(--rareza-epica); }
+.cromo[data-rareza="legendaria"] .rareza { color: var(--rareza-legendaria); }
+
+.pie {
+  padding: 2px var(--espacio-1) var(--espacio-1);
+  min-width: 0;
+}
+
+.nombre {
+  font: 600 13px/17px var(--fuente-unbounded);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font: 400 11px/14px var(--fuente-rubik);
+  color: var(--texto-secundario);
+}
+
+/* Tamaños */
+.g {
+  padding: 6px;
+  border-radius: var(--radio-l);
+}
+
+.g .nombre {
+  font: 600 17px/22px var(--fuente-unbounded);
+}
+
+.g .meta {
+  font: 400 12px/16px var(--fuente-rubik);
+}
+
+.g .numero {
+  top: 8px;
+  left: 8px;
+  padding: 2px 10px;
+  font: 700 14px/16px var(--fuente-unbounded);
+}
+
+.g .rareza {
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 26px;
+}
+
+.p {
+  padding: 3px;
+  border-radius: var(--radio-s);
+  box-shadow: var(--sombra-pop-pequena);
+}
+
+.p .numero {
+  top: 3px;
+  left: 3px;
+  padding: 0 4px;
+  border-width: 1.5px;
+  font: 700 9px/11px var(--fuente-unbounded);
+}
+
+.p .rareza {
+  top: 3px;
+  right: 3px;
+  width: 11px;
+  height: 14px;
+  border-width: 1.5px;
+}
+
+.p .pie {
+  padding: 1px 2px 2px;
+}
+
+.p .nombre {
+  font: 600 10px/13px var(--fuente-unbounded);
+}
+
+.p .meta {
+  display: none;
+}
