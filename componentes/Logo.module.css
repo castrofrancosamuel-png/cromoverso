@@ -1,0 +1,36 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  color: var(--texto-principal);
+  text-decoration: none;
+}
+
+.inverso {
+  color: var(--texto-inverso);
+}
+
+.simbolo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: var(--borde-grosor) solid currentColor;
+  border-radius: 50%;
+  background: var(--marca-primario);
+  color: var(--marca-acento);
+}
+
+.inverso .simbolo {
+  border-color: var(--texto-inverso);
+}
+
+.simbolo svg {
+  stroke: var(--borde-fuerte);
+  stroke-width: 1;
+}
+
+.texto {
+  font: 600 20px/1 var(--fuente-unbounded);
+  letter-spacing: -0.5px;
+}
