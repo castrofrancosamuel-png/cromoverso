@@ -2,7 +2,7 @@
 
 Álbum de cromos de héroes. Este repositorio tiene el sprint 1 del proyecto de frontend: las vistas públicas **Inicio** y **Catálogo de un mundo**, en español e inglés, con aviso de cookies, en web y móvil.
 
-- Despliegue: _(pega aquí el enlace de Vercel)_
+- Despliegue: (https://cromoverso-chi.vercel.app)
 - Diseño: archivo de Figma de Cromoverso, página «Curso — alcance de tres sprints», bloque «Sprint 1»
 - API: https://yanethm-cromoverso-api.fly.dev/api/v1 ([endpoints](https://yanethm-cromoverso-api.fly.dev/docs), [contrato por vista](https://yanethm-cromoverso-api.fly.dev/docs/contrato))
 
