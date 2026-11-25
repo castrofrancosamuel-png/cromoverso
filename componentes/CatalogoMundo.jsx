@@ -6,6 +6,7 @@ import Cromo from "./Cromo";
 import Icono from "./Icono";
 import Explosion from "./Explosion";
 import InsigniaRareza from "./InsigniaRareza";
+import EstadoPagina from "./EstadoPagina";
 import { numeroDeCromo } from "@/lib/textos";
 import estilos from "./CatalogoMundo.module.css";
 
@@ -26,7 +27,7 @@ function urlConFiltros(mundoId, filtros, cambios = {}) {
   return `/mundos/${mundoId}${consulta ? `?${consulta}` : ""}`;
 }
 
-export default function CatalogoMundo({ mundo, mundos, rarezas, cromos, paginacion, filtros, errorFiltro }) {
+export default function CatalogoMundo({ mundo, mundos, rarezas, cromos, paginacion, filtros, errorFiltro, errorCarga }) {
   const { t } = useTextos();
   const posicion = mundos.findIndex(({ id }) => id === mundo.id) + 1;
   const hayFiltros = Boolean(filtros.rareza || filtros.tipo);
@@ -167,10 +168,12 @@ export default function CatalogoMundo({ mundo, mundos, rarezas, cromos, paginaci
           </div>
 
           <p className="solo-lector" role="status">
-            {!errorFiltro && t("paginas.albumMundo.filtros.cantidad", { cantidad: paginacion?.total ?? 0 })}
+            {!errorFiltro && !errorCarga && t("paginas.albumMundo.filtros.cantidad", { cantidad: paginacion?.total ?? 0 })}
           </p>
 
-          {errorFiltro ? (
+          {errorCarga ? (
+            <EstadoPagina tipo="error" codigo={errorCarga} nivel={3} compacto />
+          ) : errorFiltro ? (
             <Estado titulo={t(`errores.${errorFiltro}`)} accion={t("paginas.albumMundo.vacio.botones.limpiar")} href={limpiar} error />
           ) : cromos.length === 0 ? (
             <Estado

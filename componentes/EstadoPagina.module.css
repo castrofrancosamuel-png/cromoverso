@@ -10,3 +10,38 @@
   max-width: 48ch;
   color: var(--texto-secundario);
 }
+
+/* Dentro de una sección o de la ventana modal */
+.compacto {
+  gap: var(--espacio-3);
+  padding: var(--espacio-6) var(--espacio-4);
+  border: var(--borde-grosor) dashed var(--borde-fuerte);
+  border-radius: var(--radio-l);
+  background: var(--fondo-superficie);
+}
+
+.icono {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: 50%;
+  background: var(--marca-primario-suave);
+  color: var(--texto-marca);
+}
+
+.iconoError {
+  background: var(--estado-error-suave);
+  color: var(--estado-error);
+}
+
+.girando {
+  animation: girar 900ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}

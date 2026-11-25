@@ -9,7 +9,8 @@ import estilosDetalle from "./DetalleCromo.module.css";
 
 // Ventana modal de la vista 3 sobre el catálogo. Usa <dialog> nativo: atrapa el foco,
 // cierra con Escape y devuelve el foco al cerrar. Cerrar vuelve a la página anterior.
-export default function ModalCromo({ idTitulo = "modal-cromo-titulo", children }) {
+// `conCerrar` agrega el botón de cerrar en la esquina (para los estados de carga, error y no encontrado)
+export default function ModalCromo({ idTitulo = "modal-cromo-titulo", conCerrar = false, children }) {
   const dialogo = useRef(null);
   const router = useRouter();
 
@@ -26,14 +27,21 @@ export default function ModalCromo({ idTitulo = "modal-cromo-titulo", children }
     <dialog
       ref={dialogo}
       className={estilos.modal}
-      aria-labelledby={idTitulo}
+      aria-labelledby={idTitulo || undefined}
       onClose={() => router.back()}
       // Un clic en el fondo oscuro (fuera de la tarjeta) también cierra
       onClick={(evento) => {
         if (evento.target === dialogo.current) dialogo.current.close();
       }}
     >
-      <div className={estilos.tarjeta}>{children}</div>
+      <div className={estilos.tarjeta}>
+        {conCerrar && (
+          <div className={estilos.esquina}>
+            <BotonCerrarModal />
+          </div>
+        )}
+        {children}
+      </div>
     </dialog>
   );
 }

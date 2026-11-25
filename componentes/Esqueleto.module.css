@@ -1,0 +1,208 @@
+/* Siluetas de carga con los colores del sistema de diseño */
+.bloque {
+  display: block;
+  border-radius: var(--radio-s);
+  background: linear-gradient(90deg, var(--fondo-sutil) 0%, var(--borde-sutil) 50%, var(--fondo-sutil) 100%);
+  background-size: 200% 100%;
+  animation: brillo 1.4s ease-in-out infinite;
+}
+
+.oscuro {
+  background: linear-gradient(90deg, var(--fondo-inverso-2) 0%, var(--borde-inverso) 50%, var(--fondo-inverso-2) 100%);
+  background-size: 200% 100%;
+}
+
+.claro {
+  background: linear-gradient(90deg, #ffffff33 0%, #ffffff55 50%, #ffffff33 100%);
+  background-size: 200% 100%;
+}
+
+@keyframes brillo {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.titulo {
+  height: 40px;
+  width: 80%;
+}
+
+.linea {
+  height: 16px;
+  width: 100%;
+}
+
+.lineaFina {
+  height: 12px;
+  width: 100%;
+}
+
+.boton {
+  height: 56px;
+  width: 220px;
+  border-radius: var(--radio-pildora);
+}
+
+/* Inicio */
+.hero {
+  background: var(--fondo-inverso);
+}
+
+.heroInterior {
+  display: grid;
+  gap: var(--espacio-4);
+  min-height: 420px;
+  align-content: center;
+  max-width: var(--ancho-contenido);
+}
+
+.heroInterior > .titulo {
+  max-width: 560px;
+  height: 56px;
+}
+
+.seccion {
+  display: grid;
+  gap: var(--espacio-5);
+  padding-block: var(--espacio-7);
+}
+
+.subtitulo {
+  height: 32px;
+  width: 280px;
+}
+
+.mundos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--espacio-4);
+}
+
+.tarjetaMundo {
+  height: 120px;
+  border-radius: var(--radio-l);
+}
+
+/* Catálogo */
+.encabezado {
+  padding-block: var(--espacio-7);
+  background: var(--marca-primario);
+}
+
+.encabezado .contenedor {
+  display: grid;
+  gap: var(--espacio-3);
+}
+
+.catalogo {
+  display: grid;
+  grid-template-columns: 296px minmax(0, 1fr);
+  gap: var(--espacio-6);
+  padding-block: var(--espacio-6) var(--espacio-8);
+}
+
+.lateral {
+  display: grid;
+  gap: var(--espacio-5);
+  align-content: start;
+}
+
+.panel {
+  height: 240px;
+  border-radius: var(--radio-l);
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--espacio-5);
+}
+
+.carta {
+  display: grid;
+  gap: var(--espacio-2);
+}
+
+.arte {
+  aspect-ratio: 156 / 180;
+  border-radius: var(--radio-m);
+}
+
+/* Detalle */
+.pagina {
+  padding-block: var(--espacio-6) var(--espacio-8);
+}
+
+.tarjeta {
+  padding: var(--espacio-6);
+  border: var(--borde-grosor) solid var(--borde-sutil);
+  border-radius: var(--radio-xl);
+  background: var(--fondo-superficie);
+}
+
+.detalle {
+  display: grid;
+  grid-template-columns: minmax(200px, 316px) minmax(0, 1fr);
+  gap: var(--espacio-6);
+}
+
+.escenario {
+  aspect-ratio: 316 / 420;
+  border-radius: var(--radio-l);
+}
+
+.info {
+  display: grid;
+  gap: var(--espacio-4);
+  align-content: start;
+}
+
+.poder {
+  height: 72px;
+  border-radius: var(--radio-m);
+}
+
+.atributos {
+  height: 180px;
+  border-radius: var(--radio-m);
+}
+
+@media (max-width: 1023px) {
+  .mundos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grilla {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .heroInterior {
+    min-height: 300px;
+  }
+
+  .mundos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalogo {
+    grid-template-columns: 1fr;
+  }
+
+  .lateral {
+    display: none;
+  }
+
+  .detalle {
+    grid-template-columns: 1fr;
+  }
+
+  .escenario {
+    max-width: 200px;
+  }
+}
