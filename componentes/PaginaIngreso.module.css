@@ -1,0 +1,166 @@
+/* Vista 4 · Iniciar sesión: dos mitades a pantalla completa (Figma, Sprint 2) */
+.pagina {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.presentacion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  padding: var(--espacio-6) var(--espacio-7) var(--espacio-7);
+  overflow: hidden;
+  background: var(--fondo-inverso-2);
+  color: var(--texto-inverso);
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--fondo-inverso);
+}
+
+.logoPresentacion,
+.cartas,
+.textos {
+  position: relative;
+}
+
+/* Abanico de tres cartas */
+.cartas {
+  flex: 1;
+  min-height: 360px;
+}
+
+.cartas > * {
+  position: absolute;
+  width: 200px;
+}
+
+.cartaIzquierda {
+  top: 40px;
+  left: calc(50% - 210px);
+  transform: rotate(-12deg);
+}
+
+.cartaDerecha {
+  top: 40px;
+  left: calc(50% + 10px);
+  transform: rotate(10deg);
+}
+
+.cartaCentro {
+  top: 0;
+  left: calc(50% - 100px);
+}
+
+.textos {
+  display: grid;
+  gap: var(--espacio-3);
+  justify-items: start;
+}
+
+.temporada {
+  padding: 2px var(--espacio-3);
+  border-radius: var(--radio-pildora);
+  background: var(--marca-primario-suave);
+  color: var(--texto-marca);
+}
+
+.titulo {
+  max-width: 12em;
+  font: 700 clamp(32px, 3.4vw, 48px) / 1.1 var(--fuente-unbounded);
+  letter-spacing: -1px;
+}
+
+.texto {
+  color: var(--texto-inverso-suave);
+}
+
+.lado {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--espacio-8) var(--espacio-6);
+  background: var(--fondo-pagina);
+}
+
+.idioma {
+  position: absolute;
+  top: var(--espacio-5);
+  right: var(--espacio-5);
+}
+
+.formulario {
+  display: grid;
+  gap: var(--espacio-3);
+  width: min(100%, 420px);
+}
+
+.encabezado {
+  font: 700 clamp(28px, 2.6vw, 36px) / 1.1 var(--fuente-unbounded);
+  letter-spacing: -1px;
+}
+
+.subtitulo {
+  margin-bottom: var(--espacio-3);
+  color: var(--texto-secundario);
+}
+
+/* Móvil: presentación compacta arriba y formulario debajo */
+@media (max-width: 899px) {
+  .pagina {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .presentacion {
+    gap: var(--espacio-4);
+    padding: var(--espacio-4) var(--espacio-4) var(--espacio-5);
+  }
+
+  .cartas {
+    flex: none;
+    min-height: 230px;
+  }
+
+  .cartas > * {
+    width: 140px;
+  }
+
+  .cartaIzquierda {
+    top: 20px;
+    left: calc(50% - 130px);
+  }
+
+  .cartaCentro {
+    left: calc(50% - 50px);
+  }
+
+  .cartaDerecha {
+    display: none;
+  }
+
+  .logoFormulario {
+    display: none;
+  }
+
+  .lado {
+    place-items: stretch;
+    padding: var(--espacio-5) var(--espacio-4) var(--espacio-7);
+  }
+
+  .idioma {
+    position: static;
+    justify-self: end;
+    margin-bottom: var(--espacio-3);
+  }
+
+  .formulario {
+    width: 100%;
+  }
+}

@@ -1,0 +1,145 @@
+.formulario {
+  display: grid;
+  gap: var(--espacio-4);
+}
+
+.alerta {
+  display: flex;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-4);
+  border: var(--borde-grosor) solid var(--estado-error);
+  border-radius: var(--radio-m);
+  background: var(--estado-error-suave);
+  color: var(--texto-principal);
+}
+
+.alerta:focus-visible {
+  outline-offset: 3px;
+}
+
+.alerta .detalle-nota,
+.alerta p + p {
+  color: var(--texto-secundario);
+}
+
+.iconoAlerta {
+  flex: none;
+  margin-top: 2px;
+  color: var(--estado-error);
+}
+
+.campo {
+  display: grid;
+  gap: var(--espacio-2);
+}
+
+.entrada {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--espacio-3) var(--espacio-4);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-m);
+  background: var(--fondo-superficie);
+  font: 400 16px/24px var(--fuente-rubik);
+  color: var(--texto-principal);
+}
+
+.entrada::placeholder {
+  color: var(--texto-terciario);
+}
+
+.entrada[aria-invalid="true"] {
+  border-color: var(--estado-error);
+}
+
+.conBoton {
+  position: relative;
+}
+
+.conBoton .entrada {
+  padding-right: 52px;
+}
+
+.verClave {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.verClave:hover {
+  background: var(--fondo-sutil);
+}
+
+.errorCampo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  color: var(--estado-error);
+}
+
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2) var(--espacio-4);
+}
+
+.casilla {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.casilla input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--marca-primario);
+}
+
+.enlace {
+  color: var(--texto-marca);
+}
+
+.enviar {
+  width: 100%;
+}
+
+.enviar:disabled {
+  opacity: 0.75;
+  cursor: progress;
+  transform: none;
+}
+
+.girando {
+  animation: girar 900ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.registro {
+  text-align: center;
+  color: var(--texto-secundario);
+}
+
+@media (max-width: 899px) {
+  .fila {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
