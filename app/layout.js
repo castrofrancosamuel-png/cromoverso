@@ -23,7 +23,8 @@ export const viewport = {
   themeColor: "#1a1033",
 };
 
-export default async function RootLayout({ children }) {
+// `modal` es la ranura paralela @modal: ahí se abre el detalle de un cromo sobre el catálogo
+export default async function RootLayout({ children, modal }) {
   const { idioma, consentimiento } = await leerPreferencias();
   const { textos } = await api.textos(idioma);
 
@@ -36,6 +37,7 @@ export default async function RootLayout({ children }) {
           consentimientoInicial={consentimiento}
         >
           <Estructura>{children}</Estructura>
+          {modal}
         </ProveedorTextos>
       </body>
     </html>
