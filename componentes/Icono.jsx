@@ -73,6 +73,7 @@ const TRAZOS = {
   flechaDer: <path d="M5 12h14M12 5l7 7-7 7" />,
   flechaIzq: <path d="M19 12H5M12 19l-7-7 7-7" />,
   chevronDer: <path d="m9 18 6-6-6-6" />,
+  chevronIzq: <path d="m15 18-6-6 6-6" />,
   chevronAbajo: <path d="m6 9 6 6 6-6" />,
   menu: <path d="M4 6h16M4 12h16M4 18h16" />,
   cerrar: <path d="M18 6 6 18M6 6l12 12" />,
