@@ -5,12 +5,15 @@ import { useTextos } from "./ProveedorTextos";
 import Cromo from "./Cromo";
 import Icono from "./Icono";
 import Explosion from "./Explosion";
+import { useUsuario } from "./ProveedorSesion";
 import estilos from "./Hero.module.css";
 
 // Portada del inicio. `cartas` son tres cromos legendarios: izquierda, centro y derecha.
 export default function Hero({ cartas }) {
   const { t } = useTextos();
   const [izquierda, centro, derecha] = cartas;
+  // Con la sesión iniciada no se invita a crear cuenta (Figma: inicio con sesión iniciada)
+  const conSesion = Boolean(useUsuario());
 
   return (
     <section className={estilos.hero} aria-labelledby="hero-titulo">
@@ -22,19 +25,23 @@ export default function Hero({ cartas }) {
           </h1>
           <p className={`cuerpo-g ${estilos.subtituloMovil}`}>{t("paginas.inicio.hero.subtituloMovil")}</p>
           <div className={estilos.botones}>
-            <Link href="/registro" prefetch={false} className="boton boton--acento boton--grande">
-              <Icono nombre="regalo" />
-              {t("paginas.inicio.hero.botones.crearCuentaGratis")}
-            </Link>
+            {!conSesion && (
+              <Link href="/registro" prefetch={false} className="boton boton--acento boton--grande">
+                <Icono nombre="regalo" />
+                {t("paginas.inicio.hero.botones.crearCuentaGratis")}
+              </Link>
+            )}
             <Link href="#mundos" className="boton boton--claro boton--grande">
               <Icono nombre="album" />
               {t("paginas.inicio.hero.botones.explorarMundos")}
             </Link>
           </div>
-          <p className={`cuerpo-p ${estilos.subtitulo}`}>
-            <Icono nombre="destellos" tamano={18} className={estilos.destellos} />
-            {t("paginas.inicio.hero.subtitulo")}
-          </p>
+          {!conSesion && (
+            <p className={`cuerpo-p ${estilos.subtitulo}`}>
+              <Icono nombre="destellos" tamano={18} className={estilos.destellos} />
+              {t("paginas.inicio.hero.subtitulo")}
+            </p>
+          )}
         </div>
 
         {centro && (
