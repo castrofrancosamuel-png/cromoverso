@@ -7,6 +7,9 @@ import { useTextos } from "./ProveedorTextos";
 import Logo from "./Logo";
 import Icono from "./Icono";
 import SelectorIdioma from "./SelectorIdioma";
+import MenuCuenta from "./MenuCuenta";
+import { iniciales, useUsuario } from "./ProveedorSesion";
+import { cerrarSesion } from "@/app/acciones/sesion";
 import estilos from "./Navbar.module.css";
 
 // Rutas del sprint 1. "Mundos" abre el catálogo del primer mundo.
@@ -22,6 +25,9 @@ export default function Navbar() {
   const botonMenu = useRef(null);
   const panel = useRef(null);
   const enInicio = ruta === "/";
+  const usuario = useUsuario();
+  // Después de ingresar se vuelve a la página donde estaba la persona
+  const ingresar = enInicio ? "/ingresar" : `/ingresar?volver=${encodeURIComponent(ruta)}`;
 
   // Cerrar el menú al navegar
   useEffect(() => setAbierto(false), [ruta]);
@@ -65,14 +71,23 @@ export default function Navbar() {
           <div className={estilos.soloWeb}>
             <SelectorIdioma />
           </div>
-          {!abierto && (
-            <Link href="/ingresar" prefetch={false} className={`boton boton--claro ${estilos.ingresar}`}>
-              {t("navbar.botones.ingresar")}
-            </Link>
+          {usuario ? (
+            // Sesión iniciada: el avatar con el menú de la cuenta reemplaza a Ingresar y Crear cuenta
+            <div className={estilos.soloWeb}>
+              <MenuCuenta />
+            </div>
+          ) : (
+            <>
+              {!abierto && (
+                <Link href={ingresar} prefetch={false} className={`boton boton--claro ${estilos.ingresar}`}>
+                  {t("navbar.botones.ingresar")}
+                </Link>
+              )}
+              <Link href="/registro" prefetch={false} className={`boton boton--primario ${estilos.soloWeb}`}>
+                {t("navbar.botones.crearCuenta")}
+              </Link>
+            </>
           )}
-          <Link href="/registro" prefetch={false} className={`boton boton--primario ${estilos.soloWeb}`}>
-            {t("navbar.botones.crearCuenta")}
-          </Link>
           <button
             ref={botonMenu}
             type="button"
@@ -113,14 +128,33 @@ export default function Navbar() {
             <span className="cuerpo-p-fuerte">{t("menuMovil.secciones.idioma")}</span>
             <SelectorIdioma />
           </div>
-          <div className={estilos.botonesMovil}>
-            <Link href="/ingresar" prefetch={false} className="boton boton--claro boton--grande">
-              {t("menuMovil.botones.ingresar")}
-            </Link>
-            <Link href="/registro" prefetch={false} className="boton boton--primario boton--grande">
-              {t("menuMovil.botones.crearCuenta")}
-            </Link>
-          </div>
+          {usuario ? (
+            // Móvil con sesión: avatar, nombre, alias y cerrar sesión (Figma, menú móvil)
+            <div className={estilos.cuentaMovil}>
+              <span className={estilos.avatarMovil} aria-hidden="true">
+                {iniciales(usuario.nombre)}
+              </span>
+              <div className={estilos.datosMovil}>
+                <p className="cuerpo-p-fuerte">{usuario.nombre}</p>
+                <p className="detalle-nota">@{usuario.alias}</p>
+              </div>
+              <form action={cerrarSesion}>
+                <button type="submit" className="boton boton--claro">
+                  <Icono nombre="salir" tamano={16} />
+                  {t("menuMovil.botones.cerrarSesion")}
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div className={estilos.botonesMovil}>
+              <Link href={ingresar} prefetch={false} className="boton boton--claro boton--grande">
+                {t("menuMovil.botones.ingresar")}
+              </Link>
+              <Link href="/registro" prefetch={false} className="boton boton--primario boton--grande">
+                {t("menuMovil.botones.crearCuenta")}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
