@@ -70,6 +70,20 @@ const TRAZOS = {
     <path d="M2.7 10.3a2.4 2.4 0 0 0 0 3.4l7.6 7.6a2.4 2.4 0 0 0 3.4 0l7.6-7.6a2.4 2.4 0 0 0 0-3.4l-7.6-7.6a2.4 2.4 0 0 0-3.4 0Z" />
   ),
   circulo: <circle cx="12" cy="12" r="9" />,
+  alerta: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8v4M12 16h.01" />
+    </>
+  ),
+  recargar: (
+    <>
+      <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" />
+      <path d="M8 16H3v5" />
+    </>
+  ),
   flechaDer: <path d="M5 12h14M12 5l7 7-7 7" />,
   flechaIzq: <path d="M19 12H5M12 19l-7-7 7-7" />,
   chevronDer: <path d="m9 18 6-6-6-6" />,

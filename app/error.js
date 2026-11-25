@@ -2,7 +2,8 @@
 
 import EstadoPagina from "@/componentes/EstadoPagina";
 
-// Si la API falla al cargar una vista (los estados completos llegan en el sprint 2)
+// Último recurso para un fallo que la vista no atrapó. Las vistas muestran su propio estado
+// de error con el código de la API (lib/cargar.js); aquí Next.js ya no deja ver ese código.
 export default function ErrorDeVista({ reset }) {
   return <EstadoPagina tipo="error" onReintentar={reset} />;
 }

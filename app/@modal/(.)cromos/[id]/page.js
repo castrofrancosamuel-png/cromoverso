@@ -1,7 +1,10 @@
+import { unstable_rethrow } from "next/navigation";
 import DetalleCromo from "@/componentes/DetalleCromo";
+import EstadoPagina from "@/componentes/EstadoPagina";
 import ModalCromo, { BotonCerrarModal } from "@/componentes/ModalCromo";
 import CromoNoEncontrado from "@/componentes/CromoNoEncontrado";
 import TituloDocumento from "@/componentes/TituloDocumento";
+import { codigoDeError } from "@/lib/cargar";
 import { leerDetalle } from "@/lib/detalle";
 
 const ID_TITULO = "modal-cromo-titulo";
@@ -17,12 +20,18 @@ export default async function ModalDeCromo({ params }) {
     // notFound() dentro de la modal: se muestra el mensaje en la misma ventana
     if (error?.digest?.startsWith("NEXT_HTTP_ERROR_FALLBACK;404")) {
       return (
-        <ModalCromo idTitulo={ID_TITULO}>
+        <ModalCromo idTitulo={ID_TITULO} conCerrar>
           <CromoNoEncontrado nivel={2} idTitulo={ID_TITULO} />
         </ModalCromo>
       );
     }
-    throw error;
+    unstable_rethrow(error);
+    // La API falló: el estado de error se muestra dentro de la misma ventana
+    return (
+      <ModalCromo idTitulo={ID_TITULO} conCerrar>
+        <EstadoPagina tipo="error" codigo={codigoDeError(error)} nivel={2} compacto idTitulo={ID_TITULO} />
+      </ModalCromo>
+    );
   }
 
   return (

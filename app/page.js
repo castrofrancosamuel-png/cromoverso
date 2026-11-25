@@ -1,7 +1,9 @@
 import Hero from "@/componentes/Hero";
 import SeccionMundos from "@/componentes/SeccionMundos";
 import TituloDocumento from "@/componentes/TituloDocumento";
+import EstadoPagina from "@/componentes/EstadoPagina";
 import { api } from "@/lib/api";
+import { cargar } from "@/lib/cargar";
 import { leerTextos } from "@/lib/servidor";
 
 export async function generateMetadata() {
@@ -27,13 +29,20 @@ async function cartasDelHero() {
 
 // Vista 1 · Inicio público: GET /mundos y GET /cromos (contrato)
 export default async function Inicio() {
-  const [{ datos: mundos }, cartas] = await Promise.all([api.mundos(), cartasDelHero()]);
+  const [mundos, cartas] = await Promise.all([cargar(api.mundos()), cartasDelHero()]);
 
   return (
     <>
       <TituloDocumento ruta="paginas.inicio.seo.titulo" />
       <Hero cartas={cartas} />
-      <SeccionMundos mundos={mundos} />
+      {mundos.error ? (
+        // Si los mundos no llegan, el hero sigue visible y la sección muestra el estado de error
+        <div id="mundos" className="contenedor" style={{ paddingBlock: "var(--espacio-7)" }}>
+          <EstadoPagina tipo="error" codigo={mundos.error} nivel={2} compacto />
+        </div>
+      ) : (
+        <SeccionMundos mundos={mundos.datos.datos} />
+      )}
     </>
   );
 }

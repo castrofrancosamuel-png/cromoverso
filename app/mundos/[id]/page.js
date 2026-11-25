@@ -1,7 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, unstable_rethrow } from "next/navigation";
 import CatalogoMundo from "@/componentes/CatalogoMundo";
+import EstadoPagina from "@/componentes/EstadoPagina";
 import TituloDocumento from "@/componentes/TituloDocumento";
 import { api, ErrorApi } from "@/lib/api";
+import { cargar, codigoDeError } from "@/lib/cargar";
 import { leerTextos } from "@/lib/servidor";
 
 const POR_PAGINA = 20;
@@ -18,11 +20,18 @@ async function leerMundo(id) {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const [{ t }, mundo] = await Promise.all([leerTextos(), leerMundo(id)]);
-  return {
-    title: t("paginas.albumMundo.seo.titulo", { mundo: mundo.nombre }),
-    description: t("paginas.albumMundo.seo.descripcion", { mundo: mundo.nombre }),
-  };
+  const { t } = await leerTextos();
+  try {
+    const mundo = await leerMundo(id);
+    return {
+      title: t("paginas.albumMundo.seo.titulo", { mundo: mundo.nombre }),
+      description: t("paginas.albumMundo.seo.descripcion", { mundo: mundo.nombre }),
+    };
+  } catch (error) {
+    // Si la API falla, la página muestra su estado de error; el título lo dice
+    unstable_rethrow(error);
+    return { title: t("estados.error.titulo") };
+  }
 }
 
 // Vista 2 · Catálogo de un mundo: GET /mundos/:id, GET /cromos y GET /rarezas (contrato).
@@ -36,23 +45,24 @@ export default async function CatalogoDeUnMundo({ params, searchParams }) {
     pagina: typeof consulta.pagina === "string" ? consulta.pagina : undefined,
   };
 
-  const [mundo, { datos: mundos }, { datos: rarezas }] = await Promise.all([
-    leerMundo(id),
-    api.mundos(),
-    api.rarezas(),
-  ]);
+  const base = await cargar(Promise.all([leerMundo(id), api.mundos(), api.rarezas()]));
+  // Sin el mundo no hay catálogo: estado de error de página completa con «Reintentar»
+  if (base.error) return <EstadoPagina tipo="error" codigo={base.error} />;
+  const [mundo, { datos: mundos }, { datos: rarezas }] = base.datos;
 
   let cromos = [];
   let paginacion = null;
   let errorFiltro = null;
+  let errorCarga = null;
   try {
     const respuesta = await api.cromos({ mundo: id, edicion: "album", ...filtros, porPagina: POR_PAGINA });
     cromos = respuesta.datos;
     paginacion = respuesta.paginacion;
   } catch (error) {
-    // 422 validacion: un filtro de la URL no es válido
+    unstable_rethrow(error);
+    // 422 validacion: un filtro de la URL no es válido. Otro fallo: estado de error en la grilla
     if (error instanceof ErrorApi && error.codigo === "validacion") errorFiltro = "validacion";
-    else throw error;
+    else errorCarga = codigoDeError(error);
   }
 
   return (
@@ -66,6 +76,7 @@ export default async function CatalogoDeUnMundo({ params, searchParams }) {
         paginacion={paginacion}
         filtros={filtros}
         errorFiltro={errorFiltro}
+        errorCarga={errorCarga}
       />
     </>
   );
