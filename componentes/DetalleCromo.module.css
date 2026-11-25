@@ -1,0 +1,261 @@
+/* Vista 3 · Detalle de un cromo (Figma, Sprint 2: carta a la izquierda y ficha a la derecha) */
+.detalle {
+  display: grid;
+  grid-template-columns: minmax(240px, 316px) minmax(0, 1fr);
+  gap: var(--espacio-6);
+  align-items: start;
+}
+
+/* Fondo del color del mundo detrás de la carta */
+.escenario {
+  display: grid;
+  place-items: center;
+  padding: var(--espacio-6) var(--espacio-5);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-l);
+  background:
+    repeating-conic-gradient(from 0deg at 50% 45%, #ffffff14 0deg 10deg, transparent 10deg 30deg),
+    var(--color-mundo);
+}
+
+.carta {
+  width: 100%;
+  max-width: 240px;
+}
+
+.info {
+  display: grid;
+  gap: var(--espacio-4);
+  min-width: 0;
+}
+
+.cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-sutil);
+  color: var(--texto-secundario);
+}
+
+.chipMundo {
+  background: var(--color-mundo-suave, var(--marca-primario-suave));
+  color: var(--texto-marca);
+}
+
+.ubicacion {
+  color: var(--texto-secundario);
+}
+
+.nombre {
+  font: 700 clamp(28px, 3.4vw, 40px) / 1.15 var(--fuente-unbounded);
+  letter-spacing: -1px;
+  overflow-wrap: anywhere;
+}
+
+.poder {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-4);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-m);
+  background: var(--marca-primario-suave);
+}
+
+.iconoPoder {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
+}
+
+.etiquetaPoder {
+  color: var(--texto-marca);
+}
+
+.descripcion {
+  color: var(--texto-secundario);
+}
+
+.atributos {
+  display: grid;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4) var(--espacio-5);
+  border-radius: var(--radio-m);
+  background: var(--fondo-sutil);
+}
+
+.atributosCabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.barras {
+  display: grid;
+  gap: var(--espacio-2);
+  margin: 0;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.barra {
+  height: 12px;
+  border: 1.5px solid var(--borde-fuerte);
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-superficie);
+  overflow: hidden;
+}
+
+.barra > span {
+  display: block;
+  height: 100%;
+  background: var(--marca-primario);
+}
+
+.valor {
+  margin: 0;
+  text-align: right;
+  font: 700 16px/20px var(--fuente-rubik);
+}
+
+.escala {
+  color: var(--texto-terciario);
+}
+
+.vecinos {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding-top: var(--espacio-2);
+}
+
+.vecino {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  min-height: 44px;
+  padding-inline: var(--espacio-2);
+  color: var(--texto-marca);
+  text-decoration: none;
+  border-radius: var(--radio-s);
+}
+
+.vecino:hover {
+  text-decoration: underline;
+}
+
+.siguiente {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+/* Botón (o enlace) de cerrar, redondo como en el diseño */
+.cerrar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: var(--borde-grosor) solid var(--marca-primario);
+  border-radius: 50%;
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+  cursor: pointer;
+}
+
+.cerrar:hover {
+  background: var(--marca-primario-suave);
+}
+
+/* Móvil: carta pequeña al lado del nombre, como en la hoja inferior del diseño */
+@media (max-width: 767px) {
+  .detalle {
+    grid-template-columns: 1fr;
+    gap: var(--espacio-4);
+  }
+
+  .escenario {
+    padding: var(--espacio-4);
+  }
+
+  .carta {
+    max-width: 180px;
+  }
+
+  /* En la hoja inferior la carta va pequeña a la izquierda del nombre */
+  .enModal {
+    grid-template-columns: 128px minmax(0, 1fr);
+    gap: var(--espacio-3);
+  }
+
+  .enModal .info {
+    display: contents;
+  }
+
+  .enModal .escenario {
+    grid-row: 1 / span 3;
+    align-self: start;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .enModal .cabecera,
+  .enModal .ubicacion,
+  .enModal .nombre {
+    grid-column: 2;
+  }
+
+  .enModal .cabecera {
+    padding-right: 48px;
+  }
+
+  .enModal .nombre {
+    font-size: 22px;
+  }
+
+  .enModal .poder,
+  .enModal .descripcion,
+  .enModal .atributos,
+  .enModal .vecinos {
+    grid-column: 1 / -1;
+  }
+
+  .enModal .cerrar {
+    position: absolute;
+    top: var(--espacio-4);
+    right: var(--espacio-4);
+  }
+
+  .fila {
+    grid-template-columns: 80px minmax(0, 1fr) 32px;
+  }
+
+  .atributos {
+    padding: var(--espacio-3) var(--espacio-4);
+  }
+}

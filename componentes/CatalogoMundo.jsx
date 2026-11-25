@@ -183,7 +183,10 @@ export default function CatalogoMundo({ mundo, mundos, rarezas, cromos, paginaci
             <ul className={estilos.grilla}>
               {cromos.map((cromo) => (
                 <li key={cromo.id}>
-                  <Cromo cromo={cromo} className={estilos.carta} />
+                  {/* Abre la vista 3 en una ventana modal sobre el catálogo */}
+                  <Link href={`/cromos/${cromo.id}`} scroll={false} className={estilos.enlaceCarta}>
+                    <Cromo cromo={cromo} className={estilos.carta} />
+                  </Link>
                 </li>
               ))}
             </ul>

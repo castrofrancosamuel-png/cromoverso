@@ -55,6 +55,19 @@
   display: none;
 }
 
+/* Cada carta abre su detalle (vista 3) */
+.enlaceCarta {
+  display: block;
+  border-radius: var(--radio-m);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 120ms ease;
+}
+
+.enlaceCarta:hover {
+  transform: translate(-2px, -2px);
+}
+
 /* Cuerpo: panel lateral y grilla */
 .cuerpo {
   display: grid;

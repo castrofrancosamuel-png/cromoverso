@@ -6,13 +6,14 @@ import Icono, { ICONO_DE_FIGURA } from "./Icono";
 import { numeroDeCromo } from "@/lib/textos";
 import estilos from "./Cromo.module.css";
 
-const ICONO_DE_RAREZA = { comun: "circulo", rara: "rombo", epica: "estrella", legendaria: "corona" };
+export const ICONO_DE_RAREZA = { comun: "circulo", rara: "rombo", epica: "estrella", legendaria: "corona" };
 
 // Rayos del fondo de la carta, calculados una vez
 const RAYOS = Array.from({ length: 12 }, (_, indice) => {
   const angulo = (indice / 12) * Math.PI * 2;
   const abertura = Math.PI / 24;
-  const punto = (a) => `${50 + Math.cos(a) * 120},${48 + Math.sin(a) * 120}`;
+  // Redondeado: el servidor y el navegador calculan seno y coseno con decimales distintos
+  const punto = (a) => `${(50 + Math.cos(a) * 120).toFixed(2)},${(48 + Math.sin(a) * 120).toFixed(2)}`;
   return `50,48 ${punto(angulo - abertura)} ${punto(angulo + abertura)}`;
 }).map((puntos) => <polygon key={puntos} points={puntos} />);
 

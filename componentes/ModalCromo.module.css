@@ -1,0 +1,51 @@
+.modal {
+  width: min(100% - 2 * var(--espacio-4), 1000px);
+  max-height: calc(100dvh - 2 * var(--espacio-6));
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+}
+
+.modal::backdrop {
+  background: #1a1033a6;
+}
+
+.tarjeta {
+  position: relative;
+  max-height: calc(100dvh - 2 * var(--espacio-6));
+  overflow-y: auto;
+  padding: var(--espacio-6);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-xl);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+  box-shadow: var(--sombra-flotante);
+}
+
+/* Móvil: hoja que sube desde abajo */
+@media (max-width: 767px) {
+  .modal {
+    width: 100%;
+    max-width: none;
+    margin: auto 0 0;
+    max-height: 92dvh;
+  }
+
+  .tarjeta {
+    max-height: 92dvh;
+    padding: var(--espacio-5) var(--espacio-4) var(--espacio-6);
+    border-width: var(--borde-grosor) 0 0;
+    border-radius: var(--radio-xl) var(--radio-xl) 0 0;
+  }
+
+  .tarjeta::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    margin: 0 auto var(--espacio-3);
+    border-radius: var(--radio-pildora);
+    background: var(--borde-sutil);
+  }
+}

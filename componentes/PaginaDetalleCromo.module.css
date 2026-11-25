@@ -1,0 +1,39 @@
+.pagina {
+  display: grid;
+  gap: var(--espacio-5);
+  padding-block: var(--espacio-6) var(--espacio-8);
+}
+
+.migas ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 600 14px/20px var(--fuente-rubik);
+  color: var(--texto-secundario);
+}
+
+.migas a {
+  color: var(--texto-marca);
+}
+
+.tarjeta {
+  padding: var(--espacio-6);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
+  border-radius: var(--radio-xl);
+  background: var(--fondo-superficie);
+  box-shadow: var(--sombra-pop);
+}
+
+@media (max-width: 767px) {
+  .pagina {
+    padding-block: var(--espacio-4) var(--espacio-6);
+  }
+
+  .tarjeta {
+    padding: var(--espacio-4);
+  }
+}
