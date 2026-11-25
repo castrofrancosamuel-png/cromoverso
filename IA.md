@@ -1,6 +1,8 @@
 # Uso de IA
 
-Usamos Claude (Anthropic) como asistente durante el sprint 1. Cada entrada dice qué le pedimos, qué respondió y qué hicimos con la respuesta. Revisamos y probamos todo el código antes de subirlo.
+Usamos Claude (Anthropic) como asistente durante los sprints 1 y 2. Cada entrada dice qué le pedimos, qué respondió y qué hicimos con la respuesta. Revisamos y probamos todo el código antes de subirlo.
+
+## Sprint 1
 
 ## Entrada 1 · Elegir el framework (respuesta equivocada y corregida)
 
@@ -33,3 +35,38 @@ Usamos Claude (Anthropic) como asistente durante el sprint 1. Cada entrada dice 
 - **Pedido:** dibujar el cromo sin imágenes, como pide el contrato.
 - **Respuesta de la IA:** un SVG con fondo `colorBase`, rayos, halo, silueta con visor amarillo y el emblema de la `figura` en el pecho; degradado para los holográficos.
 - **Error que encontramos al probar:** el emblema no se veía en las cartas no holográficas porque el icono heredaba el color oscuro del texto. Se corrigió poniendo `color="#ffd23f"` en el grupo del emblema.
+
+## Sprint 2
+
+## Entrada 6 · La silueta del inicio aparecía en «Iniciar sesión» (respuesta equivocada y corregida)
+
+- **Pedido:** agregar los estados de carga de las vistas.
+- **Respuesta de la IA:** puso la silueta del inicio en `app/loading.js`, en la raíz de `app/`.
+- **Por qué estaba mal:** un `loading.js` envuelve también todas las rutas que están debajo de su carpeta. Al abrir `/ingresar` se veía un momento la silueta del inicio, y como la página empezaba a enviarse antes de tiempo, la redirección de «ya tienes sesión» dejaba de ser una redirección 307 del servidor.
+- **Cómo se corrigió:** movimos el inicio a un grupo de rutas, `app/(inicio)/page.js` con su `app/(inicio)/loading.js`. Lo comprobamos con `curl`: `/ingresar` con sesión vuelve a responder 307 hacia `/`.
+
+## Entrada 7 · Error de hidratación en las cartas (respuesta equivocada y corregida)
+
+- **Pedido:** revisar los errores de la consola al abrir el catálogo para la vista 3.
+- **Respuesta de la IA:** la carta del sprint 1, escrita con ayuda de la IA, calculaba los rayos del fondo con `Math.cos` y `Math.sin` sin redondear.
+- **Por qué estaba mal:** el servidor y el navegador dan decimales distintos en la última cifra (`145.20240083494824` contra `145.2024008349482`), y React avisaba «A tree hydrated but some attributes didn't match».
+- **Cómo se corrigió:** redondeamos los puntos con `toFixed(2)` en `componentes/Cromo.jsx`. La consola quedó limpia en las cuatro vistas.
+
+## Entrada 8 · Dónde guardar el token de la sesión
+
+- **Pedido:** cómo guardar la sesión después de `POST /sesion`.
+- **Respuesta de la IA:** siguiendo el contrato, hacer el ingreso en una Server Action, guardar el token en una cookie **httpOnly** del propio frontend y mandarlo a la API como `Authorization: Bearer` solo desde el servidor. Descartó `localStorage` porque cualquier script de la página podría leerlo.
+- **Qué hicimos:** lo aplicamos en `app/ingresar/acciones.js` y `lib/sesion.js`. La casilla «Mantener la sesión iniciada» decide si la cookie dura 12 horas (como la sesión de la API) o se borra al cerrar el navegador. Al navegador solo llegan nombre, alias, correo y color del avatar.
+
+## Entrada 9 · La ventana modal no se cerraba al navegar
+
+- **Pedido:** abrir el detalle del cromo como ventana modal sobre el catálogo, como en el diseño.
+- **Respuesta de la IA:** usar rutas paralelas (`app/@modal`) con una ruta interceptada (`(.)cromos/[id]`), cerrar con `router.back()` y usar `<dialog>` para que el foco quede dentro y Escape funcione.
+- **Error que encontramos al probar:** con la modal abierta, al ir a otra página con un enlace la modal seguía abierta, porque en la navegación del lado del cliente la ranura `@modal` conserva lo último que mostró.
+- **Cómo se corrigió:** agregamos `app/@modal/page.js` y `app/@modal/[...resto]/page.js`, que devuelven `null` para cualquier otra ruta. Además, los enlaces «cromo anterior / siguiente» reemplazan la entrada del historial, así «Cerrar» vuelve directo al catálogo.
+
+## Entrada 10 · Mostrar el código del error de la API
+
+- **Pedido:** que el estado de error diga el mensaje de `textos.errores[codigo]`.
+- **Respuesta de la IA:** explicó que en producción Next.js oculta el mensaje de los errores que llegan a `error.js`, así que ahí no se puede leer el `codigo`. Propuso atrapar el error en cada vista con una función (`lib/cargar.js`) que devuelve el código y vuelve a lanzar `notFound()` y `redirect()` con `unstable_rethrow`.
+- **Qué hicimos:** lo usamos en las vistas 1, 2 y 3. `error.js` queda como último recurso con el mensaje general. Lo probamos con `?simularError=503`.
