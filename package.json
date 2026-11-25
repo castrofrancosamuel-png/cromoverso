@@ -2,7 +2,7 @@
   "name": "cromoverso",
   "version": "0.1.0",
   "private": true,
-  "description": "Cromoverso: álbum de cromos de héroes. Proyecto de frontend, sprint 1.",
+  "description": "Cromoverso: álbum de cromos de héroes. Proyecto de frontend, sprints 1 y 2.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
